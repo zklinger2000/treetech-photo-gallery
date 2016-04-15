@@ -43,11 +43,14 @@ header > input::-webkit-input-placeholder {
   font-style: italic;
   transition: opacity 0.2s;
   opacity: 1;
+  color: #8f8f8f;
 }
 header > input::-moz-placeholder {
   font-style: italic;
   transition: opacity 0.2s;
+/*  -moz-transition: opacity 0.2s; Doesn't work*/
   opacity: 1;
+  color: #8f8f8f;
 }
 header > input:focus::-webkit-input-placeholder {
   transition: opacity 0.2s;
