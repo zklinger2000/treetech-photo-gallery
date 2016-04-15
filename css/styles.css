@@ -1,0 +1,90 @@
+/*============
+  Main Style
+============*/
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #333;
+}
+body {
+  padding: 0;
+  margin: 0;
+  color: #111;
+  text-align: center;
+}
+header {
+  background-color: #eee;
+  position: fixed;
+  top: 0;
+  height: 80px;
+  width: 100%;
+  z-index: 10;
+  border-bottom: 1px solid #444;
+  box-shadow: 0 1px 10px 1px rgba(22, 22, 22, .8);
+}
+header > input {
+  margin: 20px 0;
+  padding: .5em;
+  width: calc(280px + .5em);
+  border-color: lightgrey;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 12px 2px rgba(22, 22, 22, .2);
+}
+.main-content {
+  padding-top: 80px;
+}
+.photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+/*  margin-top: 80px;*/
+}
+img {
+  width: 150px;
+  height: 150px;
+  margin: calc((100vw - 300px) / 4) 0;
+  box-shadow: 1px 1px 15px 2px rgba(22, 22, 22, .8);
+}
+
+/*=========
+  Flexbox
+=========*/
+
+
+/*===============
+  Media Queries
+===============*/
+
+@media screen and (min-width: 768px) {
+
+  img {
+    width: 200px;
+    height: 200px;
+    box-shadow: 1px 1px 15px 2px rgba(22, 22, 22, .8);
+    margin: calc((100vw - 400px) / 12) 0;
+  }
+  
+}
+
+@media screen and (min-width: 1024px) {
+
+  header > input {
+    width: 480px;
+  }
+  .photo-gallery {
+    width: 980px;
+    margin: 0 auto;
+    justify-content: flex-start;
+  }
+  img {
+    margin: 30px 0;
+  }
+  img:nth-child(4n+2), img:nth-child(4n+3), img:nth-child(4n+4) {
+    margin-left: 60px;
+  }
+
+}
