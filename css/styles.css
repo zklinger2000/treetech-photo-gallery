@@ -94,6 +94,19 @@ a img {
   text-align: center;
   z-index: 99;
 }
+#prevPhoto {
+  position: fixed;
+  top: 0;
+  left: calc(50vw - 2em);
+  font-size: 3em;
+  color: #eee;
+  opacity: 0;
+  cursor: pointer;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  z-index: 1000;
+}
 #overlay img {
   margin-top: 10vh;
   width: 320px;
@@ -111,7 +124,13 @@ a img {
 /*===============
   Media Queries
 ===============*/
+@media screen and (min-width: 568px) {
 
+  #prevPhoto {
+    top: calc(50vh - 1em);
+    left: calc(50vw - 2em - 160px);
+  }
+}
 @media screen and (min-width: 768px) {
 
   a {
@@ -119,6 +138,10 @@ a img {
     height: 200px;
     box-shadow: 1px 1px 15px 2px rgba(22, 22, 22, .8);
     margin: calc((100vw - 400px) / 12) 0;
+  }
+  #prevPhoto {
+    top: calc(10vh + 160px);
+    left: calc(50vw - 3em - 200px);
   }
   #overlay img {
     margin-top: 10vh;
@@ -144,6 +167,11 @@ a img {
   }
   a:nth-child(4n+2), a:nth-child(4n+3), a:nth-child(4n+4) {
     margin-left: 60px;
+  }
+  #prevPhoto {
+    top: calc(10vh + 200px);
+    left: calc(50vw - 1em - 400px);
+    padding: auto 0;
   }
   #overlay img {
     max-width: 800px;

@@ -50,6 +50,7 @@
 
 $(document).ready(function() {
   var $overlay = $('<div id="overlay"></div>');
+//  var $prevPhoto = $('<div id="prevPhoto"><</div>');
   var $image = $('<img>');
   var $caption = $('<p></p>');
   
@@ -61,6 +62,8 @@ $(document).ready(function() {
   });
   $('#photoGallery').html(galleryHtml);
   
+  // Add prevPhoto to overlay
+//  $overlay.append($prevPhoto);
   // Add image to overlay
   $overlay.append($image);
   // Add caption to overlay
@@ -80,12 +83,14 @@ $(document).ready(function() {
     // Show the overlay
     $overlay.fadeIn('slow', function() {
       $overlay.children('img').fadeTo('slow', 1, function() {
+        $('#prevPhoto').fadeTo('slow', 1);
         $overlay.children('p').fadeTo('fast', 1);
       });
     });
   });
   // When overlay is clicked
   $overlay.click(function() {
+    $('#prevPhoto').fadeTo(1, 0);
     // Hide overlay
     $overlay.fadeOut('fast', function() {
       $overlay.children('img').fadeTo(1, 0, function() {
@@ -93,4 +98,14 @@ $(document).ready(function() {
       });
     });
   });
+  // Click event for next image
+  $('#prevPhoto').click(function(event) {
+    event.preventDefault();
+    var imageSource = $('#overlay img').attr('src');
+//    console.log(imageSource);
+    console.log(photos.findIndex(function(photo) {
+      return photo.src === imageSource.slice(7);
+    }));
+//    console.log(imageSource.slice(7));
+  })
 });
