@@ -52,9 +52,14 @@ $(document).ready(function() {
   var $overlay = $('<div id="overlay"></div>');
   var $image = $('<img>');
   var $caption = $('<p></p>');
+  
+  // Build Photo Gallery from JSON object
+  var galleryHtml = '';
+  
   photos.forEach(function(photo) {
-    console.log(photo.name);
+    galleryHtml += '<a href="photos/' + photo.src + '"><img src="photos/thumbnails/' + photo.src + '" alt="Photo of ' + photo.name + '" title="' + photo.title + '"></a>'
   });
+  $('#photoGallery').html(galleryHtml);
   
   // Add image to overlay
   $overlay.append($image);
@@ -63,21 +68,29 @@ $(document).ready(function() {
   // Add overlay
   $('body').append($overlay);
   
-  // Capture click event
+  // Click event for thumbnails
   $('#photoGallery a').click(function(event) {
     event.preventDefault();
     var imageSource = $(this).attr('href');
     // Update overlay with clicked image
     $image.attr('src', imageSource);
     // Get child's alt attr and set caption
-    var captionText = $(this).children('img').attr('alt');
+    var captionText = $(this).children('img').attr('title');
     $caption.text(captionText);
     // Show the overlay
-    $overlay.show();    
+    $overlay.fadeIn('slow', function() {
+      $overlay.children('img').fadeTo('slow', 1, function() {
+        $overlay.children('p').fadeTo('fast', 1);
+      });
+    });
   });
   // When overlay is clicked
   $overlay.click(function() {
     // Hide overlay
-    $overlay.hide();
+    $overlay.fadeOut('fast', function() {
+      $overlay.children('img').fadeTo(1, 0, function() {
+        $overlay.children('p').fadeTo(1, 0);
+      });
+    });
   });
 });
