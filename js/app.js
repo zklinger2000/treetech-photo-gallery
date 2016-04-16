@@ -102,10 +102,27 @@ $(document).ready(function() {
   $('#prevPhoto').click(function(event) {
     event.preventDefault();
     var imageSource = $('#overlay img').attr('src');
-//    console.log(imageSource);
+
     console.log(photos.findIndex(function(photo) {
       return photo.src === imageSource.slice(7);
     }));
-//    console.log(imageSource.slice(7));
-  })
+  });
+      
+  function sortByHref(a, b) {
+    var aSrc = $(a).attr('href');
+    var bSrc = $(b).attr('href');
+    return (aSrc < bSrc) ? -1 : (aSrc > bSrc) ? 1 : 0;
+  }
+
+  // Filter Photos by input value
+  $('input').keyup(function(event) {
+    // Set anchors with titles that contain the input string
+    $('#photoGallery a img').filter(function(index, element){
+      return !$(element).attr('title').includes(event.currentTarget.value);
+    }).parent().css('display', 'none').sort(sortByHref).appendTo($('#photoGallery'));
+    $('#photoGallery a img').filter(function(index, element){
+      return $(element).attr('title').includes(event.currentTarget.value);
+    }).parent().css('display', 'inherit').sort(sortByHref).prependTo($('#photoGallery'));
+  });
+  
 });
