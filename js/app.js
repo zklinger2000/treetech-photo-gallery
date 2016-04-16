@@ -118,10 +118,10 @@ $(document).ready(function() {
   $('input').keyup(function(event) {
     // Set anchors with titles that contain the input string
     $('#photoGallery a img').filter(function(index, element){
-      return !$(element).attr('title').includes(event.currentTarget.value);
+      return !$(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
     }).parent().css('display', 'none').sort(sortByHref).appendTo($('#photoGallery'));
     $('#photoGallery a img').filter(function(index, element){
-      return $(element).attr('title').includes(event.currentTarget.value);
+      return $(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
     }).parent().css('display', 'inherit').sort(sortByHref).prependTo($('#photoGallery'));
   });
   
