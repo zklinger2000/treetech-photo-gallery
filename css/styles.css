@@ -9,6 +9,7 @@ html, body {
   width: 100%;
   height: 100%;
   background: #333;
+  font-family: 'Open Sans', sans-serif;
 }
 body {
   padding: 0;
@@ -36,7 +37,7 @@ header > input {
 }
 header > input:focus {
   transition: box-shadow 0.3s;
-  box-shadow: inset 1px 1px 12px 2px rgba(22, 22, 22, .2), 1px 1px 12px 2px rgba(55, 55, 175, .3);
+  box-shadow: inset 1px 1px 12px 2px rgba(22, 22, 22, .2), 0 0 12px 2px rgba(55, 55, 175, .3);
   outline: none;
 }
 header > input::-webkit-input-placeholder {
@@ -72,17 +73,20 @@ a {
   width: 150px;
   height: 150px;
   margin: calc((100vw - 300px) / 4) 0;
-  box-shadow: 1px 1px 15px 2px rgba(22, 22, 22, .8);
-  transition: transform 0.5s;
+  transition: transform ease 0.5s, box-shadow ease 0.5s, opacity 0.5s;
   transform: scale(1, 1);
+  box-shadow: 1px 1px 15px 2px rgba(22, 22, 22, .8);
+  opacity: 0.8;
 }
 a img {
   width: 100%;
   height: 100%;
 }
 a:hover {
-  transition: transform 0.1s;
+  transition: transform ease 0.1s, box-shadow ease 0.1s, opacity 0.1s;
   transform: scale(1.1, 1.1);
+  box-shadow: 0 0 15px 0 rgba(22, 22, 22, .7);
+  opacity: 1;
 }
 
 /*=========
@@ -121,10 +125,12 @@ a:hover {
 #overlay p {
   color: #eee;
   text-align: left;
+  font-size: 1.2em;
   line-height: 1.5em;
   max-width: 300px;
   margin: .5em auto;
   opacity: 0;
+  text-shadow: 1px 1px 8px black;
 }
 
 /*===============
@@ -177,7 +183,7 @@ a:hover {
   #prevPhoto {
     top: calc(10vh + 200px);
     left: calc(50vw - 1em - 400px);
-    padding: auto 0;
+/*    padding: 0;*/
   }
   #overlay img {
     max-width: 800px;
