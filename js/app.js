@@ -50,6 +50,7 @@ var photos = [{
 
 $(document).ready(function() {
   'use strict';
+  
   var $photoGallery = $('#photoGallery');
   var $overlay = $('<div id="overlay"></div>');
   var $prevPhoto = $('<div id="prevPhoto"><</div>');
@@ -59,12 +60,16 @@ $(document).ready(function() {
   
   // Build Photo Gallery from JSON object
   var galleryHtml = '';
-  
+  // Create elements from each object in photos array
   photos.forEach(function(photo) {
-    galleryHtml += '<a href="photos/' + photo.src + '"><img src="photos/thumbnails/' + photo.src + '" alt="Photo of ' + photo.name + '" title="' + photo.title + '"></a>'
+    galleryHtml += '<a href="photos/' + photo.src +
+                   '"><img src="photos/thumbnails/' + photo.src +
+                   '" alt="Photo of ' + photo.name +
+                   '" title="' + photo.title +
+                   '"></a>'
   });
+  // Insert HTML into #photoGallery
   $photoGallery.html(galleryHtml);
-  
   // Add prevPhoto to #photoGallery
   $photoGallery.append($prevPhoto);
   // Add nextPhoto to #photoGallery
@@ -73,11 +78,32 @@ $(document).ready(function() {
   $overlay.append($image);
   // Add caption to overlay
   $overlay.append($caption);
-  // Add overlay
+  // Add overlay to <body>
   $('body').append($overlay);
   
-  // Click event for thumbnails
-  $('#photoGallery a').click(function(event) {
+  // Input filter keyup listener
+  $('input').keyup(function(event) {
+    // Hide anchors with titles that don't contain the input string
+    $photoGallery.find('a img').filter(function(index, element){
+      return !$(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
+    })// Hide elements
+      .parent().css('display', 'none')
+      // Sort elements by image filename
+      .sort(sortByHref)
+      // Move to end of thumbnail list
+      .appendTo($photoGallery);
+    // Show anchors with titles that do contain the input string
+    $photoGallery.find('a img').filter(function(index, element){
+      return $(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
+    })// Show elements
+      .parent().css('display', 'block')
+      // Sort elements by image filename
+      .sort(sortByHref)
+      // Move to beginning of thumbnail list
+      .prependTo($photoGallery);
+  });
+  // Thumbnail click listeners
+  $photoGallery.find('a').click(function(event) {
     event.preventDefault();
     var imageSource = $(this).attr('href');
     // Update overlay with clicked image
@@ -94,7 +120,7 @@ $(document).ready(function() {
       });
     });
   });
-  // When overlay is clicked
+  // Overlay click listener
   $overlay.click(function() {
     $('#prevPhoto').fadeTo(1, 0);
     $('#nextPhoto').fadeTo(1, 0);
@@ -105,31 +131,32 @@ $(document).ready(function() {
       });
     });
   });
-  // Click event for prev photo in visible series
+  // Prev photo click listener
   $('#prevPhoto').click(['reverse'], changeImage);
-  // Click event for next photo in visible series
+  // Next photo click listener
   $('#nextPhoto').click([], changeImage);
   
   function changeImage(event) {
     var args = Array.prototype.slice.call(arguments);
+    var direction = args[0].data[0];
 
     // Prevent the link from loading the image location
     event.preventDefault();
     // Get list of photos still visible after search filter
-    var $anchors = $('#photoGallery a').filter(function(index, element) {
+    var $anchors = $photoGallery.find('a').filter(function(index, element) {
       return $(element).css('display') === 'block';
     });
     // Do nothing if there's only 1 photo
     if ($anchors.length < 2) return;
     // Get photo filename
-    var imageSource = $('#overlay img').attr('src').slice(7);
+    var imageSource = $overlay.find('img').attr('src').slice(7);
     // Get anchor element that matches current photo
     var $current = $anchors.find('img').filter(function(i, photo) {
       return ($(photo).attr('src').slice(18) === imageSource);
     });
     var currentIndex = $anchors.index($current.parent());
     // Get index of next/prev anchor element
-    var newIndex = (args[0].data[0] === 'reverse' ? 
+    var newIndex = (direction === 'reverse' ? 
                     (currentIndex === 0 ? $anchors.length - 1 : currentIndex - 1) : 
                     (currentIndex === $anchors.length - 1 ? 0 : currentIndex + 1));
     // Update overlay with clicked image
@@ -144,16 +171,5 @@ $(document).ready(function() {
     var bSrc = $(b).attr('href');
     return (aSrc < bSrc) ? -1 : (aSrc > bSrc) ? 1 : 0;
   }
-
-  // Filter Photos by input value
-  $('input').keyup(function(event) {
-    // Set anchors with titles that contain the input string
-    $('#photoGallery a img').filter(function(index, element){
-      return !$(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
-    }).parent().css('display', 'none').sort(sortByHref).appendTo($('#photoGallery'));
-    $('#photoGallery a img').filter(function(index, element){
-      return $(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
-    }).parent().css('display', 'block').sort(sortByHref).prependTo($('#photoGallery'));
-  });
   
 });
