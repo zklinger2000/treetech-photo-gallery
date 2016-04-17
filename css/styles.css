@@ -105,31 +105,35 @@ a:hover {
   text-align: center;
   z-index: 99;
 }
-#prevPhoto {
+#prevPhoto, #nextPhoto {
   position: fixed;
   top: 0;
-  left: calc(50vw - 2em);
   font-size: 3em;
-  color: #eee;
+  color: #ccc;
   opacity: 0;
   cursor: pointer;
   -webkit-user-select: none; /* Chrome/Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
   z-index: 1000;
+  transition: transform 0.2s, color 0.2s;
+  transform: scale(1, 1);
+}
+#prevPhoto {
+  left: calc(50vw - 2em);
 }
 #nextPhoto {
-  position: fixed;
-  top: 0;
   right: calc(50vw - 2em);
-  font-size: 3em;
+}
+#prevPhoto:hover, #nextPhoto:hover {
   color: #eee;
-  opacity: 0;
-  cursor: pointer;
-  -webkit-user-select: none; /* Chrome/Safari */        
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  z-index: 1000;
+  transition: transform ease 0.2s, color 0.2s;
+  transform: scale(1.2, 1.2);
+}
+#prevPhoto:active, #nextPhoto:active {
+  color: #888;
+  transition: transform ease 0.1s, color 0.1s;
+  transform: scale(0.8, 0.8);
 }
 #overlay img {
   margin-top: 10vh;
@@ -160,6 +164,11 @@ a:hover {
     top: calc(50vh - 1em);
     right: calc(50vw - 2em - 160px);
   }
+  #prevPhoto:hover, #nextPhoto:hover {
+    transition: transform ease 0.2s, color 0.2s;
+    transform: scale(1, 5);
+  }
+
 }
 @media screen and (min-width: 768px) {
 
