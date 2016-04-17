@@ -162,8 +162,8 @@ $(document).ready(function() {
                     (currentIndex === 0 ? $anchors.length - 1 : currentIndex - 1) : 
                     (currentIndex === $anchors.length - 1 ? 0 : currentIndex + 1));
     // Hide current image
-    $overlay.children('img').fadeTo('slow', 0);
-    $overlay.children('p').fadeTo('slow', 0, function() {  
+    $overlay.children('img').fadeTo('fast', 0);
+    $overlay.children('p').fadeTo('fast', 0, function() {  
       // Update overlay with clicked image
       $image.attr('src', 'photos/' + $($anchors.get(newIndex)).find('img').attr('src').slice(18));
       // Get child's alt attr and set caption
@@ -171,8 +171,9 @@ $(document).ready(function() {
       $caption.text(captionText);
       
       // Show new image
-      $overlay.children('img').delay(800).fadeTo('fast', 1);
-      $overlay.children('p').delay(800).fadeTo('fast', 1);
+      $overlay.children('img').delay(800).fadeTo('slow', 1, function() {
+        $overlay.children('p').fadeTo('fast', 1);
+      });
     });
   }
   // Sort utility
