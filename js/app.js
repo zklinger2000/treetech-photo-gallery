@@ -135,6 +135,18 @@ $(document).ready(function() {
   $('#prevPhoto').click(['reverse'], changeImage);
   // Next photo click listener
   $('#nextPhoto').click([], changeImage);
+  // Prev photo keydown listener
+  $(document).keydown(function(event) {
+    if (event.which == 37) {
+      $('#prevPhoto').click();
+    }
+  });
+  // Next photo keydown listener
+  $(document).keydown(function(event) {
+    if (event.which == 39) {
+      $('#nextPhoto').click();
+    }
+  });
   // Click Listener to load new image into overlay
   function changeImage(event) {
     var args = Array.prototype.slice.call(arguments);
