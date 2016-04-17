@@ -19,6 +19,7 @@ body {
 }
 header {
   background-color: #eee;
+  background: linear-gradient(15deg, #eee, #ccc);
   position: fixed;
   top: 0;
   height: 80px;
@@ -152,11 +153,11 @@ a:hover {
     margin: calc((100vw - 400px) / 12) 0;
   }
   #prevPhoto {
-    top: calc(10vh + 160px);
+    top: calc(6vh + 160px);
     left: calc(50vw - 3em - 200px);
   }
   #overlay img {
-    margin-top: 10vh;
+    margin-top: 6vh;
     width: 80%;
   }
   #overlay p {
