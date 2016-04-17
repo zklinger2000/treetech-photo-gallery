@@ -135,7 +135,7 @@ $(document).ready(function() {
   $('#prevPhoto').click(['reverse'], changeImage);
   // Next photo click listener
   $('#nextPhoto').click([], changeImage);
-  
+  // Click Listener to load new image into overlay
   function changeImage(event) {
     var args = Array.prototype.slice.call(arguments);
     var direction = args[0].data[0];
@@ -165,7 +165,7 @@ $(document).ready(function() {
     var captionText = $($anchors.get(newIndex)).find('img').attr('title');
     $caption.text(captionText);
   }
-  
+  // Sort utility
   function sortByHref(a, b) {
     var aSrc = $(a).attr('href');
     var bSrc = $(b).attr('href');
