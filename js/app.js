@@ -169,9 +169,10 @@ $(document).ready(function() {
       // Get child's alt attr and set caption
       var captionText = $($anchors.get(newIndex)).find('img').attr('title');
       $caption.text(captionText);
+      
       // Show new image
-      $overlay.children('img').fadeTo('fast', 1);
-      $overlay.children('p').fadeTo('fast', 1);
+      $overlay.children('img').delay(800).fadeTo('fast', 1);
+      $overlay.children('p').delay(800).fadeTo('fast', 1);
     });
   }
   // Sort utility
