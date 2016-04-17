@@ -8,7 +8,7 @@
 html, body {
   width: 100%;
   height: 100%;
-  background: #333;
+  background: #222;
   font-family: 'Open Sans', sans-serif;
 }
 body {
@@ -65,7 +65,7 @@ header > input:focus::-moz-placeholder {
 .main-content {
   padding-top: 80px;
 }
-.photo-gallery {
+#photoGallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -118,6 +118,19 @@ a:hover {
   -ms-user-select: none; /* IE10+ */
   z-index: 1000;
 }
+#nextPhoto {
+  position: fixed;
+  top: 0;
+  right: calc(50vw - 2em);
+  font-size: 3em;
+  color: #eee;
+  opacity: 0;
+  cursor: pointer;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  z-index: 1000;
+}
 #overlay img {
   margin-top: 10vh;
   width: 320px;
@@ -143,6 +156,10 @@ a:hover {
     top: calc(50vh - 1em);
     left: calc(50vw - 2em - 160px);
   }
+  #nextPhoto {
+    top: calc(50vh - 1em);
+    right: calc(50vw - 2em - 160px);
+  }
 }
 @media screen and (min-width: 768px) {
 
@@ -155,6 +172,10 @@ a:hover {
   #prevPhoto {
     top: calc(6vh + 160px);
     left: calc(50vw - 3em - 200px);
+  }
+  #nextPhoto {
+    top: calc(6vh + 160px);
+    right: calc(50vw - 3em - 200px);
   }
   #overlay img {
     margin-top: 6vh;
@@ -170,7 +191,7 @@ a:hover {
   header > input {
     width: 480px;
   }
-  .photo-gallery {
+  #photoGallery {
     width: 980px;
     margin: 0 auto;
     justify-content: flex-start;
@@ -184,6 +205,11 @@ a:hover {
   #prevPhoto {
     top: calc(10vh + 200px);
     left: calc(50vw - 1em - 400px);
+/*    padding: 0;*/
+  }
+  #nextPhoto {
+    top: calc(10vh + 200px);
+    right: calc(50vw - 1em - 400px);
 /*    padding: 0;*/
   }
   #overlay img {
