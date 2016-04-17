@@ -148,6 +148,8 @@ $(document).ready(function() {
     });
     // Do nothing if there's only 1 photo
     if ($anchors.length < 2) return;
+    // Do nothing if image is fading in/out to stop bad animation/behavior
+    if ($overlay.find('img').css('opacity') !== '1') return;
     // Get photo filename
     var imageSource = $overlay.find('img').attr('src').slice(7);
     // Get anchor element that matches current photo
@@ -159,11 +161,18 @@ $(document).ready(function() {
     var newIndex = (direction === 'reverse' ? 
                     (currentIndex === 0 ? $anchors.length - 1 : currentIndex - 1) : 
                     (currentIndex === $anchors.length - 1 ? 0 : currentIndex + 1));
-    // Update overlay with clicked image
-    $image.attr('src', 'photos/' + $($anchors.get(newIndex)).find('img').attr('src').slice(18));
-    // Get child's alt attr and set caption
-    var captionText = $($anchors.get(newIndex)).find('img').attr('title');
-    $caption.text(captionText);
+    // Hide current image
+    $overlay.children('img').fadeTo('slow', 0);
+    $overlay.children('p').fadeTo('slow', 0, function() {  
+      // Update overlay with clicked image
+      $image.attr('src', 'photos/' + $($anchors.get(newIndex)).find('img').attr('src').slice(18));
+      // Get child's alt attr and set caption
+      var captionText = $($anchors.get(newIndex)).find('img').attr('title');
+      $caption.text(captionText);
+      // Show new image
+      $overlay.children('img').fadeTo('fast', 1);
+      $overlay.children('p').fadeTo('fast', 1);
+    });
   }
   // Sort utility
   function sortByHref(a, b) {
