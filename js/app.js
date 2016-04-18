@@ -87,7 +87,7 @@ $(document).ready(function() {
     $photoGallery.find('a img').filter(function(index, element){
       return !$(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
     })// Hide elements
-      .parent().animate({opacity: '0'}, 'fast');
+      .parent().animate({opacity: '0'}, 'fast').addClass('hidden');
     // Move still matching elements to the front of the list
     $photoGallery.find('a img').filter(function(index, element){
       return $(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
@@ -99,8 +99,9 @@ $(document).ready(function() {
     $photoGallery.find('a img').filter(function(index, element){
       return $(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
     })// Show elements
-      .parent().animate({opacity: '1'}, 'fast');
+      .parent().removeClass('hidden').animate({opacity: '1'}, 'fast');
   });
+  
   // Thumbnail click listeners
   $photoGallery.find('a').click(function(event) {
     event.preventDefault();
@@ -119,6 +120,7 @@ $(document).ready(function() {
       });
     });
   });
+  
   // Overlay click listener
   $overlay.click(function() {
     $('#prevPhoto').fadeTo(1, 0);
@@ -130,6 +132,7 @@ $(document).ready(function() {
       });
     });
   });
+  
   // Prev photo click listener
   $('#prevPhoto').click(['reverse'], changeImage);
   // Next photo click listener
@@ -140,12 +143,14 @@ $(document).ready(function() {
       $('#prevPhoto').click();
     }
   });
+  
   // Next photo keydown listener
   $(document).keydown(function(event) {
     if (event.which == 39) {
       $('#nextPhoto').click();
     }
   });
+  
   // Click Listener to load new image into overlay
   function changeImage(event) {
     var args = Array.prototype.slice.call(arguments);
@@ -187,6 +192,7 @@ $(document).ready(function() {
       });
     });
   }
+  
   // Sort utility
   function sortByHref(a, b) {
     var aSrc = $(a).attr('href');
