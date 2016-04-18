@@ -87,20 +87,19 @@ $(document).ready(function() {
     $photoGallery.find('a img').filter(function(index, element){
       return !$(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
     })// Hide elements
-      .parent().css('display', 'none')
-      // Sort elements by image filename
-      .sort(sortByHref)
-      // Move to end of thumbnail list
-      .appendTo($photoGallery);
+      .parent().animate({opacity: '0'}, 'fast');
+    // Move still matching elements to the front of the list
+    $photoGallery.find('a img').filter(function(index, element){
+      return $(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
+    })// Sort elements by image filename
+      .parent().sort(sortByHref)
+      // Move to beginning of thumbnail list
+      .prependTo($photoGallery);
     // Show anchors with titles that do contain the input string
     $photoGallery.find('a img').filter(function(index, element){
       return $(element).attr('title').toLowerCase().includes((event.currentTarget.value.toLowerCase()));
     })// Show elements
-      .parent().css('display', 'block')
-      // Sort elements by image filename
-      .sort(sortByHref)
-      // Move to beginning of thumbnail list
-      .prependTo($photoGallery);
+      .parent().animate({opacity: '1'}, 'fast');
   });
   // Thumbnail click listeners
   $photoGallery.find('a').click(function(event) {
