@@ -155,7 +155,7 @@ $(document).ready(function() {
     event.preventDefault();
     // Get list of photos still visible after search filter
     var $anchors = $photoGallery.find('a').filter(function(index, element) {
-      return $(element).css('display') === 'block';
+      return $(element).css('opacity') === '1';
     });
     // Do nothing if there's only 1 photo
     if ($anchors.length < 2) return;
